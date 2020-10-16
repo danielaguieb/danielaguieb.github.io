@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Dan's Minesweeper</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Dan's MineSweeper</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
-</head>
 
-<body>
-  <div class="menu">
-    <div class="menuButton" data-size="10x8" bombNum="10"></div>
-    <div class="menuButton" data-size="18x14" bombNum="40"></div>
-    <div class="menuButton" data-size="24x20" bombsNum="99"></div>
-    <div class="flagNum"></div>
-    <div class="timer"></div>
-  </div>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-  <div class="gridwrapper">
-    <div class="grid"></div>
-  </div>
+  </head>
+  <body>
+    <div class="menuBar">
+      <div class="diffMenu">
+        <div class="menuButton" gameInfo="10x8x10"></div>
+        <div class="menuButton" gameInfo="18x14x40"></div>
+        <div class="menuButton" gameInfo="24x20x99"></div>
+      </div>
 
-  <div id="overlay">
-    <div id="overlayin">
-      <p class="chickenDinner">You Win!</p>
-      <p class="playAgain">Play Again</p>
+      <div class="flags"></div>
+      <div class="timer"></div> 
+
+      </div>
     </div>
-  </div>
 
-  <script src="main.js"></script>
-</body>
 
+    <div class="gridWrapper">
+      <div class="grid"></div>
+    </div>
+
+    <div id="overlay">
+      <div id="overlayin">
+        <p class="newGameReq">Click Anywhere To Play Again<p>
+        <div class="timeScore"></div>
+      </div>
+    </div>
+
+
+
+    <script src="main.js"></script>
+  </body>
 </html>

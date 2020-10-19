@@ -193,7 +193,7 @@ let MSGame = (function(){
 
 function render(g){
 	arst("render");
-	let render = g.getRendering;
+	let render = g.getRendering();
 	// let grid = document.querySelector(".grid");
 	let grid = document.getElementsByClassName("grid");
 	for(let i=0; i < grid[0].children.length; i++){
@@ -202,8 +202,26 @@ function render(g){
 			let cell = grid[0].children[i].children[j];
 			if(g.validCoord(i,j)){
 				cell.style.display = "inline";
-				cell.innerHTML = "kek";
+        // if tree for the different states ie M, H, F, 0-9
+        let cellContent = render[i].charAt(j);
+        if(cellContent === 'M'){
+          cell.innerHTML = "[" + cellContent + "]";
+        }
+        else if (cellContent === 'H'){
+          cell.innerHTML = "[" + cellContent + "]";
+        }
+        else if (cellContent === 'F'){
+          cell.innerHTML = "[" + cellContent + "]";
+        }
+        else if (cellContent === "0"){
+          cell.innerHTML = "[ ]";
+        }
+        else {
+          cell.innerHTML = "[" + cellContent + "]";
+        }
 
+
+        // cell.innerHTML = "kek";
 			}
 			else {
 				cell.style.display = "none";
@@ -223,10 +241,31 @@ function cell_click_cb(g, cell, i, j){
 	arst("cell_click_cb")
 
 	// need functionality to not do this if cell is marked
+
+  // if(g.arr[i][j].state === g.STATE_MARKED){
+  //   arst("working");
+  // }
+  arst(g.arr[i][j].state);
+
 	g.uncover(i, j);
 	render(g);
 }
 
+function cell_rightClick_cb(g, cell, i, j){
+  arst("cell_rightClick_cb");
+  g.mark(i,j);
+  render(g);
+}
+
+
+// $(function(){
+//   $( "cell" ).bind( "taphold", tapholdHandler );
+ 
+//   function tapholdHandler( event ){
+//     $( event.target ).addClass( "flagged" );
+       // mark() goes here
+//   }
+// });
 
 function prepare_dom(g) {
 	const grid = document.querySelector(".grid");
@@ -246,6 +285,9 @@ function prepare_dom(g) {
 			cell.addEventListener("click", () => {
 				cell_click_cb(g, cell, i, j);
 			});
+      cell.addEventListener("auxclick", () => {
+        cell_rightClick_cb(g, cell, i, j);
+      })
 
 			// need to add longtap event using jqueryMobile for marking
 			// cell.addEventListener("click", )

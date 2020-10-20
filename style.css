@@ -2,11 +2,29 @@
 	font-family: Raleway, Verdana, Georgia;
 }
 
-.cell .flagged {
-	color: red;
+body {
+	text-align: center;
 }
 
+.menuButton {
+	display: inline;
+}
 
+.gridWrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
 
+.cellRow {
+	display: flex;
+}
+
+.cell {
+	color: blue;
+	border-style: solid;
+	margin: 1px;
+}
 
 

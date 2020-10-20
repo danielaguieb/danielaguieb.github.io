@@ -200,28 +200,27 @@ function render(g){
 		let cellRow = grid[0].children[i];
 		for(let j=0; j < cellRow.children.length; j++){
 			let cell = grid[0].children[i].children[j];
+      let cellContent = cell.children[0];
 			if(g.validCoord(i,j)){
 				cell.style.display = "inline";
+
         // if tree for the different states ie M, H, F, 0-9
-        let cellContent = render[i].charAt(j);
-        if(cellContent === 'M'){
-          cell.innerHTML = "[" + cellContent + "]";
+        let renderContent = render[i].charAt(j);
+        if(renderContent === 'M'){
+          cellContent.innerHTML = "[" + renderContent + "]";
         }
-        else if (cellContent === 'H'){
-          cell.innerHTML = "[" + cellContent + "]";
+        else if (renderContent === 'H'){
+          cellContent.innerHTML = "[" + renderContent + "]";
         }
-        else if (cellContent === 'F'){
-          cell.innerHTML = "[" + cellContent + "]";
+        else if (renderContent === 'F'){
+          cellContent.innerHTML = "[" + renderContent + "]";
         }
-        else if (cellContent === "0"){
-          cell.innerHTML = "[ ]";
+        else if (renderContent === "0"){
+          cellContent.innerHTML = "[ ]";
         }
         else {
-          cell.innerHTML = "[" + cellContent + "]";
+          cellContent.innerHTML = "[" + renderContent + "]";
         }
-
-
-        // cell.innerHTML = "kek";
 			}
 			else {
 				cell.style.display = "none";
@@ -274,7 +273,9 @@ function prepare_dom(g) {
 
 	for(let i=0; i < maxRows; i++){
 		const cellRow = document.createElement("div");
+    cellRow.className = "cellRow";
 		grid.appendChild(cellRow);
+
 		for(let j=0; j < maxCols; j++){
 			const cell = document.createElement("div");
 			cell.className = "cell";
@@ -282,12 +283,17 @@ function prepare_dom(g) {
 			cell.setAttribute("data-cardRow", i);
 			cell.setAttribute("data-cardCol", j);
 
+
+      let cellContent = document.createElement("div");
+      cellContent.className = "cellContent";
+      cell.appendChild(cellContent);
+
 			cell.addEventListener("click", () => {
 				cell_click_cb(g, cell, i, j);
 			});
       cell.addEventListener("auxclick", () => {
         cell_rightClick_cb(g, cell, i, j);
-      })
+      });
 
 			// need to add longtap event using jqueryMobile for marking
 			// cell.addEventListener("click", )

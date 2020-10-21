@@ -1,30 +1,124 @@
 * {
-	font-family: Raleway, Verdana, Georgia;
+	font-family: 'Roboto Mono', monospace;
 }
 
 body {
-	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+	margin-top: 0px;
+	height: 100vh;
+	width: 100vw;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+.menu {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	align-items: center;
 }
 
 .menuButton {
 	display: inline;
+	padding: 5px 1em;
+	background-color: rgb(49, 222, 83);
+	margin: 5px;
+	cursor: pointer;
+	border-radius: 0.5em;
+	font-size: 1em;
+}
+
+.menuButton:hover {
+	color: white;
+	background: rgb(29, 161, 51);
+}
+
+.flags, .timer {
+	display: inline;
+	padding: 5px 1em;
+	border: 0px solid gray;
+	background-color: rgb(49, 222, 83);
+	margin: 5px;
+	border-radius: 0.5em;
+	font-size: 1em;
 }
 
 .gridWrapper {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
+}
+
+.grid {
+	display: flex;
+	flex-direction: column;
+	border-style: solid;
+	border-radius: 10px;
+	padding: 1px;
+	width: auto;
+	height: auto;
+	background-color: rgb(50, 110, 47);
 }
 
 .cellRow {
 	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .cell {
-	color: blue;
-	border-style: solid;
-	margin: 1px;
+	color: white;
+	text-align: center;
+	width: 1rem;
+	height: 1rem;
+	margin: 2px;
+	padding: 2px;
+}
+
+.cell[state=hidden] {
+	background-color: rgb(29, 161, 51);
+}
+
+.cell[state=hidden][shade=light] {
+	background-color: rgb(63, 209, 102);
+}
+
+.cell[state=revealed] {
+	background-color: rgb(124, 150, 69);
+}
+
+.cell[state=revealed][shade=light]{
+	background-color: rgb(178, 212, 106);
 }
 
 
+#overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 999;
+	opacity: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	visibility: hidden;
+}
+
+#overlay.active {
+	visibility: visible;
+}
+
+@media only screen and (max-width: 620px) {
+	/* For mobile phones: */
+
+}

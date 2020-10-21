@@ -82,19 +82,19 @@ img {
 }
 
 .cell[state=hidden] {
-	background-color: rgb(29, 161, 51);
+	background-color: rgb(38, 135, 35);
 }
 
 .cell[state=hidden][shade=light] {
-	background-color: rgb(63, 209, 102);
+	background-color: rgb(51, 194, 47);
 }
 
 .cell[state=revealed] {
-	background-color: rgb(124, 150, 69);
+	background-color: rgb(140, 139, 94);
 }
 
 .cell[state=revealed][shade=light]{
-	background-color: rgb(178, 212, 106);
+	background-color: rgb(212, 210, 140);
 }
 
 
@@ -117,6 +117,32 @@ img {
 #overlay.active {
 	visibility: visible;
 }
+
+#overlayin {
+  padding: 1em;
+  padding-left: 4em;
+  padding-right: 4em;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 20px black;
+}
+
+
+p.statusMsg {
+  font-size: 2em !important;
+}
+
+
+#overlayin p {
+  text-align: center;
+  font-size: 1em;
+}
+
 
 @media only screen and (max-width: 620px) {
 	/* For mobile phones: */

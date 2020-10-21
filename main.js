@@ -290,12 +290,12 @@ function render(g, sw){
 	// status check
 	if(status.done === true){
 		if(status.exploded === true) {
-			document.querySelector(".newGameReq").innerHTML 
-				= "You Lost. Click Anywhere To Play Again";		
+			document.querySelector(".statusMsg").innerHTML 
+				= "You Lost";		
 		}
 		else {
-			document.querySelector(".newGameReq").innerHTML 
-				= "You Won. Click Anywhere To Play Again"
+			document.querySelector(".statusMsg").innerHTML 
+				= "You Won"
 		}
 		document.querySelector("#overlay").classList.toggle("active");
 		sw.stop();

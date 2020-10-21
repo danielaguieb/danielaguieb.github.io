@@ -247,39 +247,42 @@ let stopwatch = function (elem, delay){
 
 function render(g, sw){
 	let render = g.getRendering();
-	let grid = document.getElementsByClassName("grid");
+	arst(render);
+	const grid = document.querySelector(".grid");
+	grid.style.gridTemplateColumns = 'repeat(' + g.ncols + ', 1fr)';
+	arst("nrows is " + g.nrows + " and 9 div by that is " + Math.floor(9/g.nrows));
+	arst("ncols is " + g.ncols + " and 9 % mod by that is " + (9%g.ncols));
 
 	// render each cell and it's cellContent
-	for(let i=0; i < grid[0].children.length; i++){
-		let cellRow = grid[0].children[i];
-		for(let j=0; j < cellRow.children.length; j++){
-			let cell = cellRow.children[j];
-			let cellContent = cell.firstChild;
-			if(g.validCoord(i,j)){
-				cell.style.display = "inline";
-		        // if tree for the different states ie M, H, F, 0-8
-		        let renderContent = render[i].charAt(j);
-		        if(renderContent === 'H'){
-		        	cellContent.innerHTML = '';
-					cell.setAttribute("state", "hidden");
-		        }
-		        else if (renderContent === "0"){
-		        	cellContent.innerHTML = '';
-					cell.setAttribute("state", "revealed");
-		        }
-		        else if (renderContent === 'F'){
-		        	cellContent.innerHTML = renderContent;
-				}
-				// covers mines and 1-8
-		        else {
-		        	cellContent.innerHTML = renderContent;		
-					cell.setAttribute("state", "revealed");
-		        }
-		    }
-		    else {
-		    	cell.style.display = "none";
-		    }
-		}
+	for(let i=0; i < grid.children.length; i++){
+		let i_coord = Math.floor(i / g.nrows);
+		let j_coord = i % g.ncols;
+		let cell = grid.children[i];
+		let cellContent = cell.firstChild;
+		if(g.validCoord(i_coord,j_coord)){
+			cell.style.display = "inline";
+	        // if tree for the different states ie M, H, F, 0-8
+	        const renderContent = (render[i_coord]).charAt(j_coord);
+	        if(renderContent === 'H'){
+	        	cellContent.innerHTML = '';
+				cell.setAttribute("state", "hidden");
+	        }
+	        else if (renderContent === "0"){
+	        	cellContent.innerHTML = '';
+				cell.setAttribute("state", "revealed");
+	        }
+	        else if (renderContent === 'F'){
+	        	cellContent.innerHTML = renderContent;
+			}
+			// covers mines and 1-8
+	        else {
+	        	cellContent.innerHTML = renderContent;		
+				cell.setAttribute("state", "revealed");
+	        }
+	    }
+	    else {
+	    	cell.style.display = "none";
+	    }
 	}
 
 	// flag counter
@@ -327,44 +330,40 @@ function cell_rightClick_cb(g, cell, i, j, sw){
 
 function prepare_dom(g, sw) {
 	const grid = document.querySelector(".grid");
-	const maxRows = 20; // max rows
-	const maxCols = 24; // max cols
+	const maxRow = 24;
+	const maxCol = 20;
+	const maxSize = maxRow * maxCol;
 
-	for(let i=0; i < maxRows; i++){
-		const cellRow = document.createElement("div");
-		cellRow.className = "cellRow";
-		grid.appendChild(cellRow);
+	for(let i=0; i < maxSize; i++){
+		let i_coord = Math.floor(i / maxRow);
+		let j_coord = i % maxCol;
+		const cell = document.createElement("div");
+		cell.className = "cell";
+		cell.setAttribute("data-cardRow", i_coord);
+		cell.setAttribute("data-cardCol", j_coord);
+		cell.setAttribute("state", "hidden");
 
-		for(let j=0; j < maxCols; j++){
-			const cell = document.createElement("div");
-			cell.className = "cell";
-			cellRow.appendChild(cell);
-			cell.setAttribute("data-cardRow", i);
-			cell.setAttribute("data-cardCol", j);
-			cell.setAttribute("state", "hidden");
+		if((i_coord%2 === 0 && j_coord%2 !==0) || (i_coord%2 !== 0 && j_coord%2 === 0))
+			cell.setAttribute("shade", "dark");
+		else
+			cell.setAttribute("shade", "light");
 
-			if((i%2 === 0 && j%2 !==0) || (i%2 !== 0 && j%2 === 0))
-				cell.setAttribute("shade", "dark");
-			else
-				cell.setAttribute("shade", "light");
+		let cellContent = document.createElement("div");
+		cellContent.className = "cellContent";
+		cell.appendChild(cellContent);
 
-			let cellContent = document.createElement("div");
-			cellContent.className = "cellContent";
-			cell.appendChild(cellContent);
+		cell.addEventListener("click", () => {
+			cell_click_cb(g, cell, i_coord, j_coord, sw);
+		});
+		cell.addEventListener("auxclick", () => {
+			cell_rightClick_cb(g, cell, i_coord, j_coord, sw);
+		});
+		cell.addEventListener("contextmenu", e => {
+			e.preventDefault();
+		});
 
-			cell.addEventListener("click", () => {
-				cell_click_cb(g, cell, i, j, sw);
-			});
-			cell.addEventListener("auxclick", () => {
-				cell_rightClick_cb(g, cell, i, j, sw);
-			});
-			cell.addEventListener("contextmenu", e => {
-				e.preventDefault();
-			});
-
-			// need to add longtap event using jqueryMobile for marking
-			// cell.addEventListener("click", )
-		}
+		grid.appendChild(cell);
+		// need to implement long tap still
 	}
 }
 
@@ -393,26 +392,3 @@ function main() {
 		menuButton_cb(game, game.nrows, game.ncols, game.nmines, swatch);
 	});
 }
-
-
-// let game = new MSGame();
-
-// game.init(10, 8, 10);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-// game.uncover(2,5);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-// game.uncover(5,5);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-// game.mark(4,5);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-
-// console.log("end");
-

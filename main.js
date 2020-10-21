@@ -362,12 +362,24 @@ function prepare_dom(g, sw) {
 				e.preventDefault();
 			});
 
+			$(cell).bind("taphold", () => {
+				cell_rightClick_cb(g, cell, i, j, sw);
+			});
+
 			// need to add longtap event using jqueryMobile for marking
 			// cell.addEventListener("click", )
 		}
 	}
 }
 
+
+$(function() {
+	$("div.cell").bind("taphold", tapholdHandler);
+
+	function tapholdHandler(event){
+		$(event.target)
+	}
+})
 
 function main() {
 	let game = new MSGame();

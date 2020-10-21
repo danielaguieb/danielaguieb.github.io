@@ -352,6 +352,9 @@ function prepare_dom(g, sw) {
 			cellContent.className = "cellContent";
 			cell.appendChild(cellContent);
 
+			$(cell).bind("taphold", () => {
+				cell_rightClick_cb(g, cell, i, j, sw);
+			});
 			cell.addEventListener("click", () => {
 				cell_click_cb(g, cell, i, j, sw);
 			});
@@ -361,13 +364,6 @@ function prepare_dom(g, sw) {
 			cell.addEventListener("contextmenu", e => {
 				e.preventDefault();
 			});
-
-			$(cell).bind("taphold", () => {
-				cell_rightClick_cb(g, cell, i, j, sw);
-			});
-
-			// need to add longtap event using jqueryMobile for marking
-			// cell.addEventListener("click", )
 		}
 	}
 }

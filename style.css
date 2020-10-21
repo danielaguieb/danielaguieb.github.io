@@ -85,6 +85,7 @@ img {
 
 .cell[state=hidden] {
 	background-color: rgb(38, 135, 35);
+	cursor: pointer;
 }
 
 .cell[state=hidden][shade=light] {
@@ -98,7 +99,6 @@ img {
 .cell[state=revealed][shade=light]{
 	background-color: rgb(212, 210, 140);
 }
-
 
 #overlay {
 	position: fixed;
@@ -134,11 +134,9 @@ img {
   box-shadow: 0 0 20px black;
 }
 
-
 p.statusMsg {
   font-size: 2em !important;
 }
-
 
 #overlayin p {
   text-align: center;

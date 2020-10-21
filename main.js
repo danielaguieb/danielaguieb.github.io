@@ -6,7 +6,6 @@ let arst = console.log.bind(console);
 
 window.addEventListener('load', main);
 
-
 // game engine from https://repl.it/@pfederl/Minesweeper-Game-Engine
 let MSGame = (function(){
 
@@ -192,11 +191,10 @@ return _MSGame;
 
 })();
 
+
 // simple stopwatch functionality from https://jsbin.com/IgaXEVI/167/
 let stopwatch = function (elem, delay){
 	let started, offset, clock, interval;
-
-	// reset();
 
 	function hasStarted(){ 
 		return started
@@ -302,6 +300,7 @@ function render(g, sw){
 	}
 }
 
+
 function menuButton_cb(g, rows, cols, mines, sw){
 	g.init(rows, cols, mines);
 	sw.reset();
@@ -319,11 +318,13 @@ function cell_click_cb(g, cell, i, j, sw){
 	}
 }
 
+
 function cell_rightClick_cb(g, cell, i, j, sw){
 	arst("cell_rightClick_cb");
 	g.mark(i,j);
 	render(g,sw);
 }
+
 
 function prepare_dom(g, sw) {
 	const grid = document.querySelector(".grid");
@@ -369,14 +370,6 @@ function prepare_dom(g, sw) {
 }
 
 
-$(function() {
-	$("div.cell").bind("taphold", tapholdHandler);
-
-	function tapholdHandler(event){
-		$(event.target)
-	}
-})
-
 function main() {
 	let game = new MSGame();
 	let stopw = document.querySelector(".timer");
@@ -401,26 +394,3 @@ function main() {
 		menuButton_cb(game, game.nrows, game.ncols, game.nmines, swatch);
 	});
 }
-
-
-// let game = new MSGame();
-
-// game.init(10, 8, 10);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-// game.uncover(2,5);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-// game.uncover(5,5);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-// game.mark(4,5);
-// console.log(game.getRendering().join("\n"));
-// console.log(game.getStatus());
-
-
-// console.log("end");
-
